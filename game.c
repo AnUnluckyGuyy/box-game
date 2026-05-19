@@ -34,23 +34,55 @@ bool can_move(int new_x, int new_y) {
 }
 
 bool enemy_should_move() {
-    int r = rand()  % 2;
+    int r = rand()  % 10; // 0-9
     printf("##DEBUG\nrandom:%d\n##DEBUG\n", r);
-    if (r == 0) {
+    if (r < 2) { // moves 7 times out of 10
         return false;
     } 
     return true;
 }
 
 void move_enemy() {
+    int dist_x;
+    int dist_y;
+    char direction_x;
+    char direction_y;
+
+    // get distance from player in x axis and what direction should move to
     if (player.x > enemy.x) {
-        enemy.x++;
+        dist_x = player.x - enemy.x;
+        direction_x = 'e';
     } else if (player.x < enemy.x) {
-        enemy.x--;
-    } else if (player.y > enemy.y) {
-        enemy.y++;
+        dist_x = enemy.x - player.x;
+        direction_x = 'w';
+    }
+    
+    // get distance from player in y axis and what direction should move to
+    if (player.y > enemy.y) {
+        dist_y = player.y - enemy.y;
+        direction_y = 's';
     } else if (player.y < enemy.y) {
+        dist_y = enemy.y - player.y;
+        direction_y = 'n';
+    }
+
+    if (dist_x > dist_y && direction_x == 'e') {
+        enemy.x++;
+    } else if(dist_x > dist_y && direction_x == 'w') {
+        enemy.x--;
+    } else if (dist_y > dist_x && direction_y == 's') {
+        enemy.y++;
+    } else if (dist_y > dist_x && direction_y == 'n') {
         enemy.y--;
+    } else { // equal dist_x and dist_y
+        int r = rand() % 2;
+        if (r == 0) { // x axis move
+            if (direction_x == 'e') { enemy.x++; }
+            else if (direction_x == 'w') { enemy.x--; }
+        } else if (r == 1) { // y axis move
+            if (direction_y == 's') { enemy.y++; }
+            else if (direction_y == 'n') { enemy.y--; }
+        }
     }
 }
 
@@ -94,6 +126,7 @@ void clear_screen() {
 int main() {
     srand(time(NULL));
     fill_board();
+    clear_screen();
     render_board();
 
     while (true) {
