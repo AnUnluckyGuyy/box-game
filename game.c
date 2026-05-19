@@ -36,17 +36,17 @@ bool can_move(int new_x, int new_y) {
 bool enemy_should_move() {
     int r = rand()  % 10; // 0-9
     printf("##DEBUG\nrandom:%d\n##DEBUG\n", r);
-    if (r < 2) { // moves 7 times out of 10
+    if (r < 3) { // moves 7 times out of 10
         return false;
     } 
     return true;
 }
 
 void move_enemy() {
-    int dist_x;
-    int dist_y;
-    char direction_x;
-    char direction_y;
+    int dist_x = 0;
+    int dist_y = 0;
+    char direction_x = 0;
+    char direction_y = 0;
 
     // get distance from player in x axis and what direction should move to
     if (player.x > enemy.x) {
