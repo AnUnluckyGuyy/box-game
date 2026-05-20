@@ -52,7 +52,7 @@ bool enemy_should_move() {
 
 bool enemy_is_adjacent() {
     for (int i=-1; i<2; i++) {
-        if ((player.x+i) && (player.y == enemy.y || player.y+1 == enemy.y || player.y-1 == enemy.y)) {
+        if ((player.x+i == enemy.x) && (player.y == enemy.y || player.y+1 == enemy.y || player.y-1 == enemy.y)) {
             return true;
         }
     }
