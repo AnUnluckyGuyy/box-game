@@ -13,3 +13,5 @@
 - s: down
 - a: left
 - d: right
+- x: wait
+- e: push
